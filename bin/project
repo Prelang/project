@@ -1,3 +1,15 @@
 #!/bin/zsh
 
-echo "project"
+_target=$1
+_target_script=bin/$_target
+
+if [[ -z $_target ]] ; then
+  echo "fatal: no target passed"
+  exit 1
+fi
+
+if [[ -f $_target_script ]] ; then
+  shift
+  ./$_target_script $*
+fi
+
