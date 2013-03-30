@@ -8,8 +8,15 @@ if [[ -z $_target ]] ; then
   exit 1
 fi
 
-if [[ -f $_target_script ]] ; then
+# If the target script exists and is executable, execute it with the arguments
+# passed to "project" after the target argument (i.e., $1).
+if [[ -x $_target_script ]] ; then
   shift
   ./$_target_script $*
+
+# Otherwise, fail.
+else
+  echo "fatal: target was not found or is not executable"
+  exit 1
 fi
 
