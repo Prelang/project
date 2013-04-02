@@ -15,5 +15,3 @@ _project_cpl() {
 
 compctl -K _project_cpl project
 
-test -d $_project_path && PATH=$PATH:$_project_path/bin
-
