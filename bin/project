@@ -16,7 +16,7 @@ if [[ -x $_target_script ]] ; then
 
 # Otherwise, fail.
 else
-  echo "fatal: target was not found or is not executable"
+  echo "fatal: Target '$_target' was not found or is not executable."
   exit 1
 fi
 
