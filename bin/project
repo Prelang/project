@@ -1,7 +1,15 @@
 #!/bin/zsh
 
 _target=$1
-_target_script=bin/$_target
+
+# Prefer project/
+if [[ -d project/ ]] ; then
+  _target_script=project/$_target
+
+# Fallback to bin/
+else
+  _target_script=bin/$_target
+fi
 
 if [[ -z $_target ]] ; then
   echo "fatal: no target passed"

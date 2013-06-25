@@ -3,7 +3,14 @@
 # ================================================
 export PATH=$PATH:$(dirname $0)/bin
 
-_project_path=bin/
+# Prefer project/
+if [[ -d project/ ]] ; then
+  _project_path=project/
+
+# Fallback to bin/
+else
+  _project_path=bin/
+fi
 
 _project_cpl() {
   reply=()
