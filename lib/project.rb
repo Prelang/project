@@ -9,7 +9,7 @@ module Project
   # ----------------------------------------------
   # ATTRIBUTES -----------------------------------
   # ----------------------------------------------
-  mattr_accessor :commands
+  mattr_accessor :commands, :configuration
 
   commands = []
 
@@ -40,6 +40,14 @@ module Project
   # MAIN -----------------------------------------
   # ----------------------------------------------
   def self.main
+
+    unless File.exist? "Projectfile"
+      fatal "Projectfile not found."
+    end
+
+
+
+
     # Successful exit
     exit 0
   end
