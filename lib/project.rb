@@ -33,8 +33,13 @@ module Project
   # CONFIGURATION --------------------------------
   # ----------------------------------------------
   def self.load_configuration
+
+    # Load the YAML file
     @configuration = YAML.load_file configuration_file_path
     puts @configuration
+
+    # Set environment variables to use in scripts
+    ENV["PROJECT_APPLICATION_PRODUCTION"] = @configuration["applications"]["production"]
   end
 
   def self.configuration_file_path
@@ -50,6 +55,17 @@ module Project
   end
 
   # ----------------------------------------------
+  # APPLICATIONS ---------------------------------
+  # ----------------------------------------------
+
+  # ----------------------------------------------
+  # HEROKU ---------------------------------------
+  # ----------------------------------------------
+  #def self.heroku_app_suffix(environment=:production)
+    #"--app "@configuration["applications"][environment.to_s]
+  #end
+
+  # ----------------------------------------------
   # MAIN -----------------------------------------
   # ----------------------------------------------
   def self.main
@@ -60,8 +76,7 @@ module Project
 
     load_configuration
 
-
-
+    `../scripts/foo`
 
     # Successful exit
     exit 0
