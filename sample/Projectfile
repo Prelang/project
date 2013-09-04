@@ -1,0 +1,12 @@
+domains:
+  production: fantravel.com
+  staging: staging.fantravel.com
+
+applications:
+  production: fantravel-v2
+  staging: fantravel-v2-staging
+
+databases:
+  development: fantravel_development
+  test: fantravel_test
+
