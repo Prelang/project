@@ -128,6 +128,7 @@ module Project
 
     # Retrieve the line the script should execute
     puts [environment_output].concat(ARGV).join(" ")
+    #execute_interactive "prompt foo"
 
     # Successful exit
     exit 0
