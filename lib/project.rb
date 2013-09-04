@@ -1,5 +1,6 @@
 require "active_support/all"
 require "git"
+require "yaml"
 
 # ================================================
 # MODULE->PROJECT ================================
@@ -29,6 +30,18 @@ module Project
   end
 
   # ----------------------------------------------
+  # CONFIGURATION --------------------------------
+  # ----------------------------------------------
+  def self.load_configuration
+    @configuration = YAML.load_file configuration_file_path
+    puts @configuration
+  end
+
+  def self.configuration_file_path
+    "Projectfile"
+  end
+
+  # ----------------------------------------------
   # MESSAGING ------------------------------------
   # ----------------------------------------------
   def self.fatal(message, error_code=1)
@@ -41,9 +54,11 @@ module Project
   # ----------------------------------------------
   def self.main
 
-    unless File.exist? "Projectfile"
+    unless File.exist? configuration_file_path
       fatal "Projectfile not found."
     end
+
+    load_configuration
 
 
 
