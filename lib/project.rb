@@ -36,14 +36,27 @@ module Project
 
     # Load the YAML file
     @configuration = YAML.load_file configuration_file_path
-    puts @configuration
 
-    # Set environment variables to use in scripts
-    ENV["PROJECT_APPLICATION_PRODUCTION"] = @configuration["applications"]["production"]
   end
 
   def self.configuration_file_path
     "Projectfile"
+  end
+
+  def self.environment_output
+    env = {}
+
+    # Set environment variables to use in scripts
+    env["PROJECT_APPLICATION_PRODUCTION"] = @configuration["applications"]["production"]
+
+    output = []
+
+    env.each do |key, value|
+      # FIX: Escape
+      output << "#{key}=\"#{value}\""
+    end
+
+    output.join(" ")
   end
 
   # ----------------------------------------------
@@ -76,7 +89,8 @@ module Project
 
     load_configuration
 
-    `../scripts/foo`
+    # Retrieve the line the script should execute
+    puts [environment_output].concat(ARGV).join(" ")
 
     # Successful exit
     exit 0
