@@ -1,6 +1,8 @@
 require "active_support/all"
 require "git"
 require "yaml"
+require "readline"
+require "open3"
 
 # ================================================
 # MODULE->PROJECT ================================
@@ -13,6 +15,41 @@ module Project
   mattr_accessor :commands, :configuration
 
   commands = []
+  
+  # ----------------------------------------------
+  # UTILITY --------------------------------------
+  # ----------------------------------------------
+  #http://stackoverflow.com/questions/9620180/how-to-execute-interactive-shell-program-on-a-remote-host-from-ruby
+  def self.execute_interactive(command)
+    Open3.popen3(command) do |i, o, e, th|
+
+      Thread.new {
+        while !i.closed? do
+          input =Readline.readline("", true).strip 
+          i.puts input
+        end
+      }
+
+      t_err = Thread.new {
+        while !e.eof?  do
+          putc e.readchar
+        end
+      }
+
+      t_out = Thread.new {
+        while !o.eof?  do
+          putc o.readchar
+        end
+      }
+
+      Process::waitpid(th.pid) rescue nil 
+      # "rescue nil" is there in case process already ended.
+
+      t_err.join
+      t_out.join
+
+    end
+  end
 
   # ----------------------------------------------
   # COMMAND --------------------------------------
