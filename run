@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+# FIX: Put this in the Rakefile
+gem uninstall project --executables
+
+rake
+echo "-------"
+
+project

@@ -1,0 +1,35 @@
+#!/bin/zsh
+
+_target=$1
+_target_script=project/$_target
+
+function _list_targets() {
+  ls -1 project/ | sed "s/^/   /"
+}
+
+# Check that project/ exists
+if [[ ! -d project/ ]] ; then
+  echo "fatal: project/ does not exist"
+  exit 1
+fi
+
+# Check that a target exists
+if [[ -z $_target ]] ; then
+  echo "fatal: no target passed"
+  _list_targets
+  exit 1
+fi
+
+# If the target script exists and is executable, execute it with the arguments
+# passed to "project" after the target argument (i.e., $1).
+if [[ -x $_target_script ]] ; then
+  shift
+  ./$_target_script $*
+
+# Otherwise, fail.
+else
+  echo "fatal: Target '$_target' was not found or is not executable."
+  _list_targets
+  exit 1
+fi
+
