@@ -17,6 +17,7 @@ _project_cpl() {
   fi
 
   reply=()
+
   for file in `ls $_project_path`
   do
     reply[$(($#reply+1))]=$file
