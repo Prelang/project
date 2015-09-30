@@ -5,13 +5,13 @@ export PATH=$PATH:$(dirname $0)/bin
 
 _project_cpl() {
 
-  # Default to bin/
-  _project_path="bin/"
+  # Default to project/
+  _project_path="project/"
 
-  # If bin/ doesn't exist, try for project/
+  # If project/ doesn't exist, try for bin/
   if [[ ! -d $_project_path ]] ; then
-    if [[ -d "project/" ]] ; then
-      _project_path="project/"
+    if [[ -d "bin/" ]] ; then
+      _project_path="bin/"
     else
     fi
   fi
